@@ -11,15 +11,18 @@ type Props = {
   className?: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type TweakpaneInstance = any;
+
 export function TweakpanePanel({ controls, onChange, className }: Props) {
-  const paneRef = useRef<Pane | null>(null);
+  const paneRef = useRef<TweakpaneInstance | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!controls || controls.length === 0) return;
     if (!containerRef.current) return;
 
-    const pane = new Pane({
+    const pane: TweakpaneInstance = new Pane({
       title: "Adjust Props",
       expanded: true,
       container: containerRef.current,
