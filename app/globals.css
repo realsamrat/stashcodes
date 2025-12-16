@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -10,17 +10,120 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: var(--font-instrument-serif);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Grid background for preview pages - applied via .preview-page-grid class */
+.preview-page-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+.preview-page-grid::before {
+  --size: 45px;
+  --line: color-mix(in lch, canvasText, transparent 85%);
+  content: "";
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size),
+    linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size);
+  mask: 
+    radial-gradient(ellipse at 0% 0%, transparent 0%, rgba(255,255,255,0.5) 15%, white 30%),
+    linear-gradient(-20deg, transparent 50%, white);
+  -webkit-mask: 
+    radial-gradient(ellipse at 0% 0%, transparent 0%, rgba(255,255,255,0.5) 15%, white 30%),
+    linear-gradient(-20deg, transparent 50%, white);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  transform-style: flat;
+  pointer-events: none;
+  z-index: -1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+summary,
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer;
+}
+
+/* Helpers for Instrument Serif */
+.font-instrument {
+  font-family: var(--font-instrument-serif), serif;
+}
+
+.font-instrument-italic {
+  font-family: var(--font-instrument-serif), serif;
+  font-style: italic;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Loader/preview grid background (borrowed style from zero-track test loader) */
+.preview-grid {
+  position: relative;
+  background-color: #0f0e0f;
+  overflow: hidden;
+}
+
+.preview-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.04) 0,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 70px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.04) 0,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 70px
+    );
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.preview-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(214, 31, 31, 0.08), transparent 35%),
+    radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.05), transparent 30%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(15, 14, 15, 0.75) 70%);
+  pointer-events: none;
+}
+
+/* Tweakpane panel adjustments */
+.tp-dfwv {
+  width: 100% !important;
 }

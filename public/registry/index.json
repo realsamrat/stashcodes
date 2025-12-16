@@ -1,0 +1,12 @@
+{
+  "components": [
+    {
+      "id": "custom-slider",
+      "name": "Custom Slider",
+      "slug": "custom-slider",
+      "description": "A beautifully animated range slider with elastic easing, thumb expansion on grab, and a split-track design.",
+      "category": "Inputs",
+      "previewImage": "/thumbnails/custom-slider.png"
+    }
+  ]
+}
